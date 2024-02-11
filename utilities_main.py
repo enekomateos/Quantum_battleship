@@ -19,7 +19,7 @@ def introduction():
     # Welcome message
     desc.print_game_description()
 
-    tutorial = input("Do you need a tutorial? (y/n)")
+    tutorial = input("Do you need a tutorial? Is is highly recommended if you are playing for the first time. (y/n)")
     if tutorial == "y":
         desc.tutorial()
 
@@ -63,6 +63,10 @@ def create_ships(possible_ships, amount_of_ships, board):
                     break
                 print("Invalid input. Please enter either 'vertical' or 'horizontal' for orientation.")
             superposition = input("Do you want to create a superposition of the ship? (y/n)")
+            tootltip = input("If you want to know more about superposition, type 's'. If not, press enter.")
+            if tootltip == "s":
+                desc.superposition()
+                os.system('cls' if os.name == 'nt' else "printf '\033c'")
             if superposition == "y" or superposition == "Y" or superposition == "yes" or superposition == "Yes" or superposition == "YES":
                 print("SUPERPOSITION")
                 while True:
