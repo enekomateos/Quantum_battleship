@@ -54,7 +54,7 @@ def select_game_mode():
     
 
 
-def create_ships(possible_ships, amount_of_ships):
+def create_ships(possible_ships, amount_of_ships, board):
     
     """
     Create the ships for the player.
@@ -83,29 +83,14 @@ def create_ships(possible_ships, amount_of_ships):
                 super_posy = int(input("Enter the y coordinate of the initial position of the ship that is going to be superimposed: "))
                 ship = Ships(possible_ships[ship], x, y, orientation, True, super_pos_orientation, super_posx, super_posy)
                 all_ships.append(ship)
+                board.add_ship(ship)
             else:
                 ship = Ships(possible_ships[ship], x, y, orientation)
                 all_ships.append(ship)
+                board.add_ship(ship)
     return all_ships
                 
-            
-
-def place_ships(board, ships):
-    """
-    Given the board and the ships, place the ships in the board.
-
-    Args:
-        board (Board): The board where the ships will be placed.
-        ships (list of Ship): List with the ships to be placed.
-    
-    Returns:
-        None
-    """
-
-    for ship in ships:
-        board.place_ship(ship)
-
-
+ 
 
 def single_player_game(board1, board2):
     pass
@@ -116,17 +101,17 @@ def two_players_game(board_1, board_2):
         # Create ships for the two players of the game. In the future we may be able to change the amount of the ships.
     # For now we will use the standard amount of ships.
 
-    possible_ships = {"Carrier": 5, "Battleship": 4, "Cruiser": 3, "Submarine": 3, "Destroyer": 2}
-    amount_of_ships = {"Carrier": 1, "Battleship": 1, "Cruiser": 1, "Submarine": 1, "Destroyer": 1}
+    # Remove everything from screen
+    os.system('cls' if os.name == 'nt' else "printf '\033c'")
+
+    possible_ships = {"Carrier": 5}#, "Battleship": 4, "Cruiser": 3, "Submarine": 3, "Destroyer": 2}
+    amount_of_ships = {"Carrier": 1}#, "Battleship": 1, "Cruiser": 1, "Submarine": 1, "Destroyer": 1}
 
     # Create ships for player 1
-    ships_1 = create_ships(possible_ships, amount_of_ships)
+    ships1 = create_ships(possible_ships, amount_of_ships, board1)
     # Create ships for player 2
-    ships_2 = create_ships(possible_ships, amount_of_ships)
+    ships2 = create_ships(possible_ships, amount_of_ships, board2)
 
-    # Now we place the ships on the board
-    place_ships(board_1, ships_1)
-    place_ships(board_2, ships_2)
 
     # Print the boards to the players
     board_1.print_board(True)
@@ -153,6 +138,7 @@ def two_players_game(board_1, board_2):
 # Start main code
 
 def main():
+    global board1, board2
 
     # Print the introduction of the game
     introduction()
