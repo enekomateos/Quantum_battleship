@@ -10,9 +10,11 @@ import os
 # Functions
 
 def introduction():
+
     """
     Print the introduction of the game.
     """
+
         # Welcome message
     print("Welcome to the Battleship game!")
     print("But, what would happen if the ships were really small and governed by the laws of quantum mechanics?")
@@ -34,9 +36,11 @@ def introduction():
     os.system('cls' if os.name == 'nt' else "printf '\033c'")
 
 def select_game_mode():
+
     """
     Select the game mode.
     """
+
     print("This game is playable in single player mode or two players mode. In single player mode you will play against the computer.")
     input("Choose the game mode: 1 player or 2 players. (1/2)")
 
@@ -80,6 +84,7 @@ def main():
         print("Player 1 turn")
         pass
         # Player 2 turn
+        print("Player 2 turn")
         pass
 
 
