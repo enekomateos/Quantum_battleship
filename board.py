@@ -50,7 +50,7 @@ class Board:
 
         # If the ship is not in superposition, place it normally
         if not superposition:
-            coords = ship.position
+            coords = ship.define_position()
             for coord in coords:
                 self.board[coord[0], coord[1]] = 1
         # If the ship is in superposition, place it in two positions and write 2 in the board to keep track of the superpositions
