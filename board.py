@@ -2,6 +2,7 @@
 # Here we define the board class
 
 import numpy as np
+import descriptions as desc
 
 class Board:
     def __init__(self, size):
@@ -26,6 +27,7 @@ class Board:
         
         Functions:
             add_ship: Add a ship to the board.
+            check_valid_position: Check if a position is valid for a ship.
             check_hit: Check if a position is a hit.
             update_board: Update the board after a hit.
             print_board: Print the board.
@@ -37,6 +39,29 @@ class Board:
         self.board = np.zeros((size, size), dtype=int)
         self.superposition_count = 1
     
+    def check_valid_position(self, ship):
+
+        """
+        Check if a ship can be placed in the board.
+
+        Args:
+            ship (Class): Ship to be added to the board.
+
+
+        Returns:
+            valid (bool): True if the position is valid, False otherwise.
+        """
+
+        valid = True
+        coords = ship.define_position()
+        for coord in coords:
+            if coord[0] < 0 or coord[0] >= self.size or coord[1] < 0 or coord[1] >= self.size:
+                valid = False
+                print("The range of the ship goes outside the board.")
+            elif self.board[coord[0], coord[1]] > 0:
+                valid = False
+                print("The ship is overlapping with another ship.")
+        return valid
 
 
     def add_ship(self, ship):
@@ -106,6 +131,31 @@ class Board:
             None
         """
 
+        # First apply wave-particle duality. The particle has a probability of being in an adjacent position
+
+        if np.random.rand() > 0.9:
+            print("Oh no! The particle did not go to where you wanted due to the wave-particle duality of the cannonball!")
+            print("The particle went to an adjacent position!")
+            input("Would you like to know more about the wave-particle duality? (y/n)")
+            # if input == "y" or input == "Y" or input == "yes" or input == "Yes" or input == "YES":
+            #     desc.wave_particle_duality()
+            if np.any(position)==0:
+                possible_positions = [(position[0]+1,position[1]+1), (position[0],position[1]+1),
+                                  (position[0]+1,position[1])]
+                position = possible_positions[np.random.randint(0, 3)]
+            elif np.any(position)==9:
+                possible_positions = [(position[0]-1,position[1]-1), (position[0],position[1]-1),
+                                  (position[0]-1,position[1])]
+                position = possible_positions[np.random.randint(0, 3)]
+            else:
+                possible_positions = [(position[0]-1,position[1]-1), (position[0]-1,position[1]+1),
+                                  (position[0]+1,position[1]-1), (position[0]+1,position[1]+1)
+                                  (position[0],position[1]-1), (position[0],position[1]+1),
+                                  (position[0]+1,position[1]), (position[0]-1,position[1])]
+                position = possible_positions[np.random.randint(0, 7)]
+
+        # Now proceed with the hit
+
         hit, superposition = self.check_hit(position)
 
         # In the following if we collapse the superposition if there is one
@@ -151,21 +201,27 @@ class Board:
 
         if player:
             print("Your board is: \n")
-            print("  | 0 1 2 3 4 5 6 7 8 9", end=' ')
-            print("\n  |---------------------")
+            print("  |  0  1  2  3  4  5  6  7  8  9", end=' ')
+            print("\n  ----------------------")
             text_board = ""
             for i in range(self.size):
                 for j in range(self.size):
                     if j == 0:
-                        text_board += f"{i} | {self.board[i, j]} "
+                        if len(str(self.board[i, j]))==1:
+                            text_board += f"{i} |  {self.board[i, j]} "
+                        else:
+                            text_board += f"{i} | {self.board[i, j]} "
                     else:
-                        text_board += f"{self.board[i, j]} "
+                        if len(str(self.board[i, j]))==1:
+                            text_board += f" {self.board[i, j]} "
+                        else:
+                            text_board += f"{self.board[i, j]} "
                 text_board += "\n"
             print(text_board)
         else:
             print("Your opponent's board is: ")
-            print("  | 0 1 2 3 4 5 6 7 8 9", end=' ')
-            print("\n  |---------------------")
+            print("  |  0  1  2  3  4  5  6  7  8  9", end=' ')
+            print("\n  ----------------------")
             text_board = ""
             for i in range(self.size):
                 for j in range(self.size):
