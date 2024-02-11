@@ -3,15 +3,16 @@
 
 # The first function is the one that prints the description of the game. It is called in the main.py file.
 
-def print_game_description():
+def introduction():
     """
     Print the description of the game.
     """
 
-    print("Welcome to the Battleship game!")
+    print("Welcome to the Battleship game! \n")
     print("But, what would happen if the ships were really small and governed by the laws of quantum mechanics?")
     print("It is not the common Battleship game, it is a quantum version of it!")
     print("Let's play!")
+    input("Press enter to continue")
 
 def tutorial():
     print("The game is played in turns. In each turn you will have to choose a position to shoot in the board of the other player.")

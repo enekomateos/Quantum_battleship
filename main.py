@@ -19,7 +19,6 @@ def introduction():
 
     # Welcome message
     desc.print_game_description()
-    os.system('cls' if os.name == 'nt' else "printf '\033c'")
 
     tutorial = input("Do you need a tutorial? (y/n)")
     if tutorial == "y":

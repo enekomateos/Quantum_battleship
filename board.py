@@ -224,7 +224,7 @@ class Board:
         if player:
             print("Your board is: \n")
             print("  |  0  1  2  3  4  5  6  7  8  9", end=' ')
-            print("\n  ----------------------")
+            print("\n   ----------------------------")
             text_board = ""
             for i in range(self.size):
                 for j in range(self.size):
