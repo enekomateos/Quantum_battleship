@@ -73,21 +73,36 @@ def create_ships(possible_ships, amount_of_ships, board):
         print("You can create", amount_of_ships[ship], "ships of this type.")
         for i in range(amount_of_ships[ship]):
             print("Create the ship number", i+1)
-            x = int(input("Enter the x coordinate of the initial position of the ship: "))
-            y = int(input("Enter the y coordinate of the initial position of the ship: "))
-            orientation = input("Enter the orientation of the ship. It can be either 'vertical' or 'horizontal': ")
-            superposition = input("Do you want to create a ship on top of another ship? (y/n)")
-            if superposition == "y":
-                super_pos_orientation = input("Enter the orientation of the ship that is going to be superimposed. It can be either 'vertical' or 'horizontal': ")
-                super_posx = int(input("Enter the x coordinate of the initial position of the ship that is going to be superimposed: "))
-                super_posy = int(input("Enter the y coordinate of the initial position of the ship that is going to be superimposed: "))
-                ship = Ships(possible_ships[ship], x, y, orientation, True, super_pos_orientation, super_posx, super_posy)
-                all_ships.append(ship)
-                board.add_ship(ship)
-            else:
-                ship = Ships(possible_ships[ship], x, y, orientation)
-                all_ships.append(ship)
-                board.add_ship(ship)
+            while True:
+                try:
+                    x = int(input("Enter the x coordinate of the initial position of the ship: "))
+                    y = int(input("Enter the y coordinate of the initial position of the ship: "))
+                except:
+                    print("Invalid input. Please enter a number.")
+                try:
+                    orientation = input("Enter the orientation of the ship. It can be either 'vertical' or 'horizontal': ")
+                    superposition = input("Do you want to create a ship on top of another ship? (y/n)")
+                except:
+                    print("Invalid input. Please enter either 'vertical' or 'horizontal' for orientation or 'y' or 'n' for superposition.")
+                if superposition == "y":
+                    try:
+                        super_posx = int(input("Enter the x coordinate of the initial position of the ship that is going to be superimposed: "))
+                        super_posy = int(input("Enter the y coordinate of the initial position of the ship that is going to be superimposed: "))
+                    except:
+                        print("Invalid input. Please enter a number.")
+                    try:
+                        super_pos_orientation = input("Enter the orientation of the ship that is going to be superimposed. It can be either 'vertical' or 'horizontal': ")
+                    except:
+                        print("Invalid input. Please enter either 'vertical' or 'horizontal' for orientation.")
+                    ship = Ships(possible_ships[ship], x, y, orientation, True, super_pos_orientation, super_posx, super_posy)
+                    all_ships.append(ship)
+                    board.add_ship(ship)
+                    os.system('cls' if os.name == 'nt' else "printf '\033c'")
+                else:
+                    ship = Ships(possible_ships[ship], x, y, orientation)
+                    all_ships.append(ship)
+                    board.add_ship(ship)
+                    os.system('cls' if os.name == 'nt' else "printf '\033c'")
     return all_ships
                 
  
