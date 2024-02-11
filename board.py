@@ -139,6 +139,7 @@ class Board:
 
         if player:
             print("Your board is: ")
+            print("  ", range(0,9), end=' ')
             for i in range(self.size):
                 for j in range(self.size):
                     print(self.board[i, j], end='  ')
