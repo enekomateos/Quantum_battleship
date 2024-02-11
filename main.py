@@ -1,9 +1,16 @@
 
 # Main code for the game
-#testndfg
-#text ll
+
 # Import block
-#dsadasdsa
+
 import numpy as np
 
 
+# Functions
+
+
+# Start main code
+
+def main():
+
+    pass
