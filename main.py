@@ -58,12 +58,15 @@ def create_ships(possible_ships, amount_of_ships, board):
         list of the positions of the ships
     """
     all_ships = []
-    for ship in possible_ships:
+    for ship_name in possible_ships:
         os.system('cls' if os.name == 'nt' else "printf '\033c'")
+        board.print_board(True)
+        print("")
         print("Create the ships.")
-        print("The ship is", ship, "and it has", possible_ships[ship], "positions.")
-        print("You can create", amount_of_ships[ship], "ships of this type.")
-        for i in range(amount_of_ships[ship]):
+        print("The ship is", ship_name, "and it has", possible_ships[ship_name], "positions.")
+        print("You can create", amount_of_ships[ship_name], "ships of this type.")
+        i=1
+        while i<=amount_of_ships[ship_name]:
             print("Create the ship number", i+1)
             while True:
                 try:
@@ -93,19 +96,57 @@ def create_ships(possible_ships, amount_of_ships, board):
                         break
                     except:
                         print("Invalid input. Please enter either 'vertical' or 'horizontal' for orientation.")
-                ship = Ships(possible_ships[ship], x, y, orientation, True, super_pos_orientation, super_posx, super_posy)
+                ship = Ships(possible_ships[ship_name], x, y, orientation, True, super_pos_orientation, super_posx, super_posy)
                 all_ships.append(ship)
-                board.add_ship(ship)
-                board.print_board(True)
+                if board.check_valid_position(ship):
+                    board.add_ship(ship)
+                else:
+                    print("Invalid position for the ship. Please choose another position.")
+                    continue
+                
                 input("Press enter to continue")
             else:
-                ship = Ships(possible_ships[ship], x, y, orientation)
+                ship = Ships(possible_ships[ship_name], x, y, orientation)
                 all_ships.append(ship)
-                board.add_ship(ship)
-                board.print_board(True)
-                input("Press enter to continue")
+                if board.check_valid_position(ship):
+                    board.add_ship(ship)
+                else:
+                    print("Invalid position for the ship. Please choose another position.")
+                    continue
+            i +=1
+            input("Press enter to continue")
+    print("All the ships are created. The board looks like this:")
+    board.print_board(True)
     return all_ships
                 
+
+def pass_computer():
+
+    """
+    Very repeating code so this function is for legibility.
+    """
+    os.system('cls' if os.name == 'nt' else "printf '\033c'")
+    input("Pass the computer to the other player. Press enter to continue.")
+    os.system('cls' if os.name == 'nt' else "printf '\033c'")
+
+def situation(player):
+    if player==1:
+        print("Your situation is:")
+        print("Your board:")
+        print("")
+        board1.print_board(True)
+        print("Your opponent's board:")
+        print("")
+        board2.print_board(False)
+    else:
+        print("Your situation is:")
+        print("Your board:")
+        print("")
+        board2.print_board(True)
+        print("Your opponent's board:")
+        print("")
+        board1.print_board(False)
+    input("Press enter to continue")
  
 
 def single_player_game(board1, board2):
@@ -120,22 +161,22 @@ def two_players_game(board_1, board_2):
     # Remove everything from screen
     os.system('cls' if os.name == 'nt' else "printf '\033c'")
 
-    possible_ships = {"Carrier": 5}#, "Battleship": 4, "Cruiser": 3, "Submarine": 3, "Destroyer": 2}
-    amount_of_ships = {"Carrier": 1}#, "Battleship": 1, "Cruiser": 1, "Submarine": 1, "Destroyer": 1}
+    possible_ships = {"Carrier": 5, "Battleship": 4}#, "Cruiser": 3, "Submarine": 3, "Destroyer": 2}
+    amount_of_ships = {"Carrier": 1, "Battleship": 1}#, "Cruiser": 1, "Submarine": 1, "Destroyer": 1}
 
     # Create ships for player 1
     ships1 = create_ships(possible_ships, amount_of_ships, board1)
+    pass_computer()
     # Create ships for player 2
     ships2 = create_ships(possible_ships, amount_of_ships, board2)
+    pass_computer()
 
 
     # Print the boards to the players
     print("The boards are ready. Let's play!")
-    board_1.print_board(True)
-    board_2.print_board(False)
-    
-    while True:
 
+    while True:
+        situation(1)
         # Player 1 turn
         print("Player 1 turn\n")
         print("Choose the position to shoot.")
@@ -156,17 +197,11 @@ def two_players_game(board_1, board_2):
             break
 
         # Print the boards to the players
-        board_1.print_board(True)
-        board_2.print_board(False)
-        input("Press enter to continue")
-
-        os.system('cls' if os.name == 'nt' else "printf '\033c'")
-
-        input("Pass the computer to the other player. Press enter to continue.")
-
-        os.system('cls' if os.name == 'nt' else "printf '\033c'")
+        situation(1)
+        pass_computer()
 
         # Player 2 turn
+        situation(2)
         print("Player 2 turn\n")
         print("Choose the position to shoot.")
         while True:
@@ -191,15 +226,8 @@ def two_players_game(board_1, board_2):
             break
 
         # Print the boards to the players
-        board_2.print_board(True)
-        board_1.print_board(False)
-        input("Press enter to continue")
-
-        os.system('cls' if os.name == 'nt' else "printf '\033c'")
-
-        input("Pass the computer to the other player. Press enter to continue.")
-
-        os.system('cls' if os.name == 'nt' else "printf '\033c'")
+        situation(2)
+        pass_computer()
 
 
 
