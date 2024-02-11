@@ -156,8 +156,8 @@ class Board:
             print("Oh no! The particle did not go to where you wanted due to the wave-particle duality of the cannonball!")
             print("The particle went to an adjacent position!")
             input("Would you like to know more about the wave-particle duality? (y/n)")
-            # if input == "y" or input == "Y" or input == "yes" or input == "Yes" or input == "YES":
-            #     desc.wave_particle_duality()
+            if input == "y" or input == "Y" or input == "yes" or input == "Yes" or input == "YES":
+                desc.wave_particle_dual()
             if np.any(position)==0:
                 possible_positions = [(position[0]+1,position[1]+1), (position[0],position[1]+1),
                                   (position[0]+1,position[1])]

@@ -3,7 +3,7 @@
 
 # The first function is the one that prints the description of the game. It is called in the main.py file.
 
-def introduction():
+def print_game_description():
     """
     Print the description of the game.
     """

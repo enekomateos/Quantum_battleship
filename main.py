@@ -24,24 +24,7 @@ def introduction():
     if tutorial == "y":
         desc.tutorial()
 
-    os.system('cls' if os.name == 'nt' else "printf '\033c'")
-
-def select_game_mode():
-
-    """
-    Select the game mode.
-    """
-
-    print("This game is playable in single player mode or two players mode. In single player mode you will play against the computer.")
-    input("Choose the game mode: 1 player or 2 players. (1/2)")
-
-    if input == "1":
-        print("You chose single player mode.")
-        return 1
-    else:
-        print("You chose two players mode.")
-        return 2
-    
+    os.system('cls' if os.name == 'nt' else "printf '\033c'")    
 
 
 def create_ships(possible_ships, amount_of_ships, board):
@@ -137,6 +120,46 @@ def create_ships(possible_ships, amount_of_ships, board):
     print("All the ships are created. The board looks like this:")
     board.print_board(True)
     return all_ships
+
+def create_ships_computer(possible_ships, amount_of_ships, board):
+
+    """
+    Creates and places the ships for the computer.
+
+    Args:
+        possible_ships: dictionary with the possible ships and their lengths
+        amount_of_ships: dictionary with the possible ships and the amount of ships of that type that can be created
+
+    Returns:
+        list of the positions of the ships
+    """
+
+    all_ships = []
+    for ship_name in possible_ships:
+        i=1
+        while i<=amount_of_ships[ship_name]:
+            x = np.random.randint(0, 10)
+            y = np.random.randint(0, 10)
+            orientation = np.random.choice(["vertical", "horizontal"])
+            superposition = np.random.choice(["y", "n"])
+            if superposition == "y":
+                super_posx = np.random.randint(0, 10)
+                super_posy = np.random.randint(0, 10)
+                super_pos_orientation = np.random.choice(["vertical", "horizontal"])
+                ship = Ships(possible_ships[ship_name], y, x, orientation, True, super_pos_orientation, super_posy, super_posx)
+                all_ships.append(ship)
+                if board.check_valid_position(ship):
+                    board.add_ship(ship)
+                else:
+                    continue
+            else:
+                ship = Ships(possible_ships[ship_name], y, x, orientation)
+                all_ships.append(ship)
+                if board.check_valid_position(ship):
+                    board.add_ship(ship)
+                else:
+                    continue
+            i +=1
                 
 
 def pass_computer():
@@ -169,7 +192,53 @@ def situation(player):
  
 
 def single_player_game(board1, board2):
-    pass
+    # Remove everything from screen
+    os.system('cls' if os.name == 'nt' else "printf '\033c'")
+
+    possible_ships = {"Carrier": 5}#, "Battleship": 4, "Cruiser": 3, "Submarine": 3, "Destroyer": 2}
+    amount_of_ships = {"Carrier": 1}#, "Battleship": 1, "Cruiser": 1, "Submarine": 1, "Destroyer": 1}
+
+    ships1 = create_ships(possible_ships, amount_of_ships, board1)
+    input("Press enter to continue, the computer will create its ships.")
+    ships2 = create_ships_computer(possible_ships, amount_of_ships, board2)
+
+    os.system('cls' if os.name == 'nt' else "printf '\033c'")
+    input("The boards are ready. Let's play!")
+
+    while True:
+        situation(1)
+        # Player 1 turn
+        print("Player 1 turn\n")
+        print("Choose the position to shoot.")
+        while True:
+            try:
+                x = int(input("Enter the vertical coordinate: "))
+                y = int(input("Enter the horizontal coordinate: "))
+                break
+            except:
+                print("Invalid input. Please enter a number.")
+        os.system('cls' if os.name == 'nt' else "printf '\033c'")
+        position = (x, y)
+        board2.update_board(position)
+
+        # Check if the game is over
+        if board2.check_game_over():
+            print("Player 1 wins!")
+            break
+
+        # Computer turn
+        print("Computer turn\n")
+        x = np.random.randint(0, 10)
+        y = np.random.randint(0, 10)
+        position = (x, y)
+        print(f"The computer chose the position {position} to shoot.")
+        board1.update_board(position)
+
+        # Check if the game is over
+        if board1.check_game_over():
+            print("Computer wins!")
+            break
+
 
 
 
@@ -266,7 +335,8 @@ def main():
     # Print the introduction of the game
     introduction()
     # Select game mode
-    game_mode = select_game_mode()
+    game_mode = input("Choose the game mode. Press 1 for single player mode and 2 for two players mode: (1/2) ")
+    input(f"You chose game mode {game_mode}. Press enter to continue.")
 
     # Create boards for the two players of the game, with standard size 10 (10x10). In the future we may be able to 
     # change the size of the board.
@@ -275,9 +345,11 @@ def main():
     board1 = Board(size)
     board2 = Board(size)
 
-    if game_mode == 1:
+    if game_mode == "1":
+        input("You chose single player mode.")
         single_player_game(board1, board2)
     else:
+        print("You chose two players mode.")
         two_players_game(board1, board2)
 
 
