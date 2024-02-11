@@ -23,6 +23,14 @@ class Board:
             self.size (int): Size of the board.
             self.board (numpy array): Board with zeros in all positions.
             self.superposition_count (int): Count of superpositions in the board. Start at 1 so then we can distinguish superpositions
+        
+        Functions:
+            add_ship: Add a ship to the board.
+            check_hit: Check if a position is a hit.
+            update_board: Update the board after a hit.
+            print_board: Print the board.
+            check_game_over: Check if the game is over.
+        
         """
 
         self.size = size
@@ -167,3 +175,17 @@ class Board:
                         text_board += "· "
                 text_board += "\n"
             print(text_board)
+    
+
+    def check_game_over(self):
+        """
+        Check if the game is over.
+
+        Returns:
+            game_over (bool): True if the game is over, False otherwise.
+        """
+
+        game_over = False
+        if np.all(self.board <= 0):
+            game_over = True
+        return game_over
