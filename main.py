@@ -1,5 +1,6 @@
 
-# Main code for the game
+# Main code for the game. THis is the file to be executed
+# Authors: Eneko Mateos and Mateusz Molenda
 
 # Import block
 
