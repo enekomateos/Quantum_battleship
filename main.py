@@ -5,6 +5,7 @@
 
 import numpy as np
 from board import Board
+from ships import Ships
 import os
 
 # Functions
@@ -54,7 +55,40 @@ def select_game_mode():
 
 
 def create_ships(possible_ships, amount_of_ships):
-    pass
+    
+    """
+    Create the ships for the player.
+    
+    Args:
+        possible_ships: dictionary with the possible ships and their lengths
+        amount_of_ships: dictionary with the possible ships and the amount of ships of that type that can be created
+
+    Returns:
+        list of the positions of the ships
+    """
+    all_ships = []
+    for ship in possible_ships:
+        print("Create the ships for the player.")
+        print("The ship is", ship, "and it has", possible_ships[ship], "positions.")
+        print("You can create", amount_of_ships[ship], "ships of this type.")
+        for i in range(amount_of_ships[ship]):
+            print("Create the ship number", i+1)
+            x = int(input("Enter the x coordinate of the initial position of the ship: "))
+            y = int(input("Enter the y coordinate of the initial position of the ship: "))
+            orientation = input("Enter the orientation of the ship. It can be either 'vertical' or 'horizontal': ")
+            superposition = input("Do you want to create a ship on top of another ship? (y/n)")
+            if superposition == "y":
+                super_pos_orientation = input("Enter the orientation of the ship that is going to be superimposed. It can be either 'vertical' or 'horizontal': ")
+                super_posx = int(input("Enter the x coordinate of the initial position of the ship that is going to be superimposed: "))
+                super_posy = int(input("Enter the y coordinate of the initial position of the ship that is going to be superimposed: "))
+                ship = Ships(possible_ships[ship], x, y, orientation, True, super_pos_orientation, super_posx, super_posy)
+                all_ships.append(ship)
+            else:
+                ship = Ships(possible_ships[ship], x, y, orientation)
+                all_ships.append(ship)
+    return all_ships
+                
+            
 
 
 

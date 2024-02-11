@@ -27,7 +27,7 @@ class Ships:
         self.super_posx = super_posx
         self.super_posy = super_posy
         
-    def Ship(self):
+    def define_position(self):
         positions = []
         
         if self.orientation == 'vertical':
@@ -54,6 +54,4 @@ class Ships:
             return [positions, super_pos]
         
         return positions
-            
-            
             
