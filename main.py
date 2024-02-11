@@ -6,6 +6,7 @@
 import numpy as np
 from board import Board
 from ships import Ships
+import descriptions as desc
 import os
 
 # Functions
@@ -16,23 +17,13 @@ def introduction():
     Print the introduction of the game.
     """
 
-        # Welcome message
-    print("Welcome to the Battleship game!")
-    print("But, what would happen if the ships were really small and governed by the laws of quantum mechanics?")
-    print("It is not the common Battleship game, it is a quantum version of it!")
-    print("Let's play!")
+    # Welcome message
+    desc.print_game_description()
     os.system('cls' if os.name == 'nt' else "printf '\033c'")
 
     tutorial = input("Do you need a tutorial? (y/n)")
     if tutorial == "y":
-        print("The game is played in turns. In each turn you will have to choose a position to shoot in the board of the other player.")
-        print("The game ends when all the ships of one of the players are destroyed.")
-        print("In the beggining the ships are placed in the board. You will have to guess where the opponent's ships are.")
-        print("The ships are governed by the laws of quantum mechanics. They can be in superposition, so they can be in two places at the same time.")
-        print("When you shoot a ship in a superposition, the ship will collapse to one of the positions, and you will know if you hit the ship or not.")
-        print("The game is over when all the ships of one of the players are destroyed.")
-        print("Good luck!")
-        input("Press enter to continue")
+        desc.tutorial()
 
     os.system('cls' if os.name == 'nt' else "printf '\033c'")
 
@@ -74,6 +65,7 @@ def create_ships(possible_ships, amount_of_ships, board):
         for i in range(amount_of_ships[ship]):
             print("Create the ship number", i+1)
             while True:
+                os.system('cls' if os.name == 'nt' else "printf '\033c'")
                 try:
                     x = int(input("Enter the x coordinate of the initial position of the ship: "))
                     y = int(input("Enter the y coordinate of the initial position of the ship: "))
@@ -97,12 +89,14 @@ def create_ships(possible_ships, amount_of_ships, board):
                     ship = Ships(possible_ships[ship], x, y, orientation, True, super_pos_orientation, super_posx, super_posy)
                     all_ships.append(ship)
                     board.add_ship(ship)
-                    os.system('cls' if os.name == 'nt' else "printf '\033c'")
+                    board.print_board(True)
+                    input("Press enter to continue")
                 else:
                     ship = Ships(possible_ships[ship], x, y, orientation)
                     all_ships.append(ship)
                     board.add_ship(ship)
-                    os.system('cls' if os.name == 'nt' else "printf '\033c'")
+                    board.print_board(True)
+                    input("Press enter to continue")
     return all_ships
                 
  
@@ -129,16 +123,76 @@ def two_players_game(board_1, board_2):
 
 
     # Print the boards to the players
+    print("The boards are ready. Let's play!")
     board_1.print_board(True)
     board_2.print_board(False)
     
-    # while True:
-    #     # Player 1 turn
-    #     print("Player 1 turn")
-    #     pass
-    #     # Player 2 turn
-    #     print("Player 2 turn")
-    #     pass
+    while True:
+
+        # Player 1 turn
+        print("Player 1 turn\n")
+        print("Choose the position to shoot.")
+        while True:
+            try:
+                x = int(input("Enter the x coordinate: "))
+                y = int(input("Enter the y coordinate: "))
+                break
+            except:
+                print("Invalid input. Please enter a number.")
+        os.system('cls' if os.name == 'nt' else "printf '\033c'")
+        position = (x, y)
+        board2.update_board(position)
+
+        # Check if the game is over
+        if board2.check_game_over():
+            print("Player 1 wins!")
+            break
+
+        # Print the boards to the players
+        board_1.print_board(True)
+        board_2.print_board(False)
+        input("Press enter to continue")
+
+        os.system('cls' if os.name == 'nt' else "printf '\033c'")
+
+        input("Pass the computer to the other player. Press enter to continue.")
+
+        os.system('cls' if os.name == 'nt' else "printf '\033c'")
+
+        # Player 2 turn
+        print("Player 2 turn\n")
+        print("Choose the position to shoot.")
+        while True:
+            try:
+                x = int(input("Enter the x coordinate: "))
+                y = int(input("Enter the y coordinate: "))
+                break
+            except:
+                print("Invalid input. Please enter a number.")
+        position = (x, y)
+        os.system('cls' if os.name == 'nt' else "printf '\033c'")
+        board1.update_board(position)
+
+        # Check if the game is over
+        if board1.check_game_over():
+            print("Player 2 wins!")
+            break
+
+        # Check if the game is over
+        if board2.check_game_over():
+            print("Player 1 wins!")
+            break
+
+        # Print the boards to the players
+        board_1.print_board(True)
+        board_2.print_board(False)
+        input("Press enter to continue")
+
+        os.system('cls' if os.name == 'nt' else "printf '\033c'")
+
+        input("Pass the computer to the other player. Press enter to continue.")
+
+        os.system('cls' if os.name == 'nt' else "printf '\033c'")
 
 
 
