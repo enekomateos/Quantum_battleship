@@ -58,12 +58,12 @@ def create_ships(possible_ships, amount_of_ships):
 
 
 
-def single_player_game():
+def single_player_game(board1, board2):
     pass
 
 
 
-def two_players_game():
+def two_players_game(board1, board2):
         # Create ships for the two players of the game. In the future we may be able to change the amount of the ships.
     # For now we will use the standard amount of ships.
 
@@ -111,9 +111,9 @@ def main():
     board2 = Board(size)
 
     if game_mode == 1:
-        single_player_game()
+        single_player_game(board1, board2)
     else:
-        two_players_game()
+        two_players_game(board1, board2)
 
 
 
