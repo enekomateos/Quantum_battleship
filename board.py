@@ -155,8 +155,8 @@ class Board:
         if np.random.rand() > 0.8:
             print("Oh no! The particle did not go to where you wanted due to the wave-particle duality of the cannonball!")
             print("The particle went to an adjacent position!")
-            input("Would you like to know more about the wave-particle duality? (y/n)")
-            if input == "y" or input == "Y" or input == "yes" or input == "Yes" or input == "YES":
+            ans = input("Would you like to know more about the wave-particle duality? (y/n)")
+            if ans == "y" or ans == "Y" or ans == "yes" or ans == "Yes" or ans == "YES":
                 desc.wave_particle_dual()
             if np.any(position)==0:
                 possible_positions = [(position[0]+1,position[1]+1), (position[0],position[1]+1),
@@ -223,7 +223,7 @@ class Board:
 
         if player:
             print("Your board is: \n")
-            print("  |  0  1  2  3  4  5  6  7  8  9", end=' ')
+            print("     0  1  2  3  4  5  6  7  8  9", end=' ')
             print("\n   ----------------------------")
             text_board = ""
             for i in range(self.size):
@@ -242,19 +242,19 @@ class Board:
             print(text_board)
         else:
             print("Your opponent's board is: ")
-            print("  |  0  1  2  3  4  5  6  7  8  9", end=' ')
-            print("\n  ----------------------")
+            print("     0  1  2  3  4  5  6  7  8  9", end=' ')
+            print("\n  -----------------------------")
             text_board = ""
             for i in range(self.size):
                 for j in range(self.size):
                     if j == 0:
-                        text_board += f"{i} | "
+                        text_board += f"{i} |  "
                     if self.board[i, j] == -1:
-                        text_board += "O "
+                        text_board += "O  "
                     elif self.board[i, j] == -2:
-                        text_board += "X "
+                        text_board += "X  "
                     else:
-                        text_board += "· "
+                        text_board += "·  "
                 text_board += "\n"
             print(text_board)
     

@@ -58,11 +58,10 @@ def create_ships(possible_ships, amount_of_ships, board):
                 except:
                     print("Invalid input. Please enter a number.")
             while True:
-                try:
-                    orientation = input("Enter the orientation of the ship. It can be either 'vertical' or 'horizontal': ")
+                orientation = input("Enter the orientation of the ship. It can be either 'vertical' or 'horizontal': ")
+                if orientation == "vertical" or orientation == "horizontal" or orientation == "Vertical" or orientation == "Horizontal" or orientation == "VERTICAL" or orientation == "HORIZONTAL" or orientation == "v" or orientation == "h" or orientation == "V" or orientation == "H":
                     break
-                except:
-                    print("Invalid input. Please enter either 'vertical' or 'horizontal' for orientation.")
+                print("Invalid input. Please enter either 'vertical' or 'horizontal' for orientation.")
             superposition = input("Do you want to create a superposition of the ship? (y/n)")
             if superposition == "y" or superposition == "Y" or superposition == "yes" or superposition == "Yes" or superposition == "YES":
                 print("SUPERPOSITION")
@@ -74,6 +73,9 @@ def create_ships(possible_ships, amount_of_ships, board):
                         super_pos_orientation = input("Enter the orientation of the ship that is going to be superimposed. It can be either 'vertical' or 'horizontal': ")
                     except:
                         print("Invalid input. Please enter a number and correct orientation.")
+                    if super_pos_orientation != "vertical" or super_pos_orientation != "horizontal" or super_pos_orientation != "Vertical" or super_pos_orientation != "Horizontal" or super_pos_orientation != "VERTICAL" or super_pos_orientation != "HORIZONTAL" or super_pos_orientation != "v" or super_pos_orientation != "h" or super_pos_orientation != "V" or super_pos_orientation == "H":
+                        print("Invalid input. Please enter a number and correct orientation.")
+                        continue
                     pos_sup = []
                     if super_pos_orientation == "vertical":
                         for j in range(possible_ships[ship_name]):
@@ -174,10 +176,8 @@ def pass_computer():
 def situation(player, board1, board2):
     if player==1:
         print("Your situation is:")
-        print("Your board:")
         print("")
         board1.print_board(True)
-        print("Your opponent's board:")
         print("")
         board2.print_board(False)
     else:

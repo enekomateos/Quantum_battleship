@@ -25,7 +25,7 @@ def single_player_game(board1, board2):
     input("The boards are ready. Let's play!")
 
     while True:
-        situation(1)
+        situation(1, board1, board2)
         # Player 1 turn
         print("Player 1 turn\n")
         print("Choose the position to shoot.")
@@ -33,6 +33,9 @@ def single_player_game(board1, board2):
             try:
                 x = int(input("Enter the vertical coordinate: "))
                 y = int(input("Enter the horizontal coordinate: "))
+                if x < 0 or x > 9 or y < 0 or y > 9:
+                    print("Invalid input. Please enter a number between 0 and 9.")
+                    continue
                 break
             except:
                 print("Invalid input. Please enter a number.")
@@ -61,7 +64,7 @@ def single_player_game(board1, board2):
 
 
 
-def two_players_game(board_1, board_2):
+def two_players_game(board1, board2):
         # Create ships for the two players of the game. In the future we may be able to change the amount of the ships.
         # For now we will use the standard amount of ships.
 
@@ -91,6 +94,9 @@ def two_players_game(board_1, board_2):
             try:
                 x = int(input("Enter the vertical coordinate: "))
                 y = int(input("Enter the horizontal coordinate: "))
+                if x < 0 or x > 9 or y < 0 or y > 9:
+                    print("Invalid input. Please enter a number between 0 and 9.")
+                    continue
                 break
             except:
                 print("Invalid input. Please enter a number.")
@@ -115,6 +121,9 @@ def two_players_game(board_1, board_2):
             try:
                 x = int(input("Enter the vertical coordinate: "))
                 y = int(input("Enter the horizontal coordinate: "))
+                if x < 0 or x > 9 or y < 0 or y > 9:
+                    print("Invalid input. Please enter a number between 0 and 9.")
+                    continue
                 break
             except:
                 print("Invalid input. Please enter a number.")
@@ -155,7 +164,6 @@ def main():
     introduction()
     # Select game mode
     game_mode = input("Choose the game mode. Press 1 for single player mode and 2 for two players mode: (1/2) ")
-    input(f"You chose game mode {game_mode}. Press enter to continue.")
 
     # Create boards for the two players of the game, with standard size 10 (10x10). In the future we may be able to 
     # change the size of the board.
