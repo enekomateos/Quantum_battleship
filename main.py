@@ -59,44 +59,51 @@ def create_ships(possible_ships, amount_of_ships, board):
     """
     all_ships = []
     for ship in possible_ships:
-        print("Create the ships for the player.")
+        os.system('cls' if os.name == 'nt' else "printf '\033c'")
+        print("Create the ships.")
         print("The ship is", ship, "and it has", possible_ships[ship], "positions.")
         print("You can create", amount_of_ships[ship], "ships of this type.")
         for i in range(amount_of_ships[ship]):
             print("Create the ship number", i+1)
             while True:
-                os.system('cls' if os.name == 'nt' else "printf '\033c'")
                 try:
                     x = int(input("Enter the x coordinate of the initial position of the ship: "))
                     y = int(input("Enter the y coordinate of the initial position of the ship: "))
+                    break
                 except:
                     print("Invalid input. Please enter a number.")
+            while True:
                 try:
                     orientation = input("Enter the orientation of the ship. It can be either 'vertical' or 'horizontal': ")
-                    superposition = input("Do you want to create a ship on top of another ship? (y/n)")
+                    break
                 except:
-                    print("Invalid input. Please enter either 'vertical' or 'horizontal' for orientation or 'y' or 'n' for superposition.")
-                if superposition == "y":
+                    print("Invalid input. Please enter either 'vertical' or 'horizontal' for orientation.")
+            superposition = input("Do you want to create a superposition of the ship? (y/n)")
+            if superposition == "y" or superposition == "Y" or superposition == "yes" or superposition == "Yes" or superposition == "YES":
+                while True:
                     try:
                         super_posx = int(input("Enter the x coordinate of the initial position of the ship that is going to be superimposed: "))
                         super_posy = int(input("Enter the y coordinate of the initial position of the ship that is going to be superimposed: "))
+                        break
                     except:
                         print("Invalid input. Please enter a number.")
+                while True:
                     try:
                         super_pos_orientation = input("Enter the orientation of the ship that is going to be superimposed. It can be either 'vertical' or 'horizontal': ")
+                        break
                     except:
                         print("Invalid input. Please enter either 'vertical' or 'horizontal' for orientation.")
-                    ship = Ships(possible_ships[ship], x, y, orientation, True, super_pos_orientation, super_posx, super_posy)
-                    all_ships.append(ship)
-                    board.add_ship(ship)
-                    board.print_board(True)
-                    input("Press enter to continue")
-                else:
-                    ship = Ships(possible_ships[ship], x, y, orientation)
-                    all_ships.append(ship)
-                    board.add_ship(ship)
-                    board.print_board(True)
-                    input("Press enter to continue")
+                ship = Ships(possible_ships[ship], x, y, orientation, True, super_pos_orientation, super_posx, super_posy)
+                all_ships.append(ship)
+                board.add_ship(ship)
+                board.print_board(True)
+                input("Press enter to continue")
+            else:
+                ship = Ships(possible_ships[ship], x, y, orientation)
+                all_ships.append(ship)
+                board.add_ship(ship)
+                board.print_board(True)
+                input("Press enter to continue")
     return all_ships
                 
  
@@ -184,8 +191,8 @@ def two_players_game(board_1, board_2):
             break
 
         # Print the boards to the players
-        board_1.print_board(True)
-        board_2.print_board(False)
+        board_2.print_board(True)
+        board_1.print_board(False)
         input("Press enter to continue")
 
         os.system('cls' if os.name == 'nt' else "printf '\033c'")

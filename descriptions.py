@@ -22,3 +22,8 @@ def tutorial():
     print("The game is over when all the ships of one of the players are destroyed.")
     print("Good luck!")
     input("Press enter to continue")
+
+def superposition():
+    print("The ships are governed by the laws of quantum mechanics. They can be in superposition, so they can be in two places at the same time.")
+    print("When you shoot a ship in a superposition, the ship will collapse to one of the positions, and you will know if you hit the ship or not.")
+    input("Press enter to continue")

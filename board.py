@@ -64,8 +64,8 @@ class Board:
         # If the ship is in superposition, place it in two positions and write 2 in the board to keep track of the superpositions
         else:
             self.superposition_count += 1
-            coords1 = ship.position[0]
-            coords2 = ship.position[1]
+            coords1 = ship.define_position()[0]
+            coords2 = ship.define_position()[1]
             for coord in coords1:
                 self.board[coord[0], coord[1]] = self.superposition_count*10+1
             for coord in coords2:
@@ -110,6 +110,7 @@ class Board:
 
         # In the following if we collapse the superposition if there is one
         if hit:
+            print("HIT!")
             if superposition > 0:
                 real_hit = np.random.rand() > 0.5
 
@@ -122,6 +123,9 @@ class Board:
                 if real_hit:
                     self.board[ship_position1] = 1
                     self.board[ship_position2] = 0
+                else:
+                    self.board[ship_position1] = 0
+                    self.board[ship_position2] = 1
             
         # Now we treat everything as a normal hit
 
@@ -149,7 +153,6 @@ class Board:
             print("Your board is: \n")
             print("  | 0 1 2 3 4 5 6 7 8 9", end=' ')
             print("\n  |---------------------")
-            print("")
             text_board = ""
             for i in range(self.size):
                 for j in range(self.size):
@@ -162,6 +165,7 @@ class Board:
         else:
             print("Your opponent's board is: ")
             print("  | 0 1 2 3 4 5 6 7 8 9", end=' ')
+            print("\n  |---------------------")
             text_board = ""
             for i in range(self.size):
                 for j in range(self.size):
