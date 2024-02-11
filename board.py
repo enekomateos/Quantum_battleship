@@ -138,20 +138,30 @@ class Board:
 
 
         if player:
-            print("Your board is: ")
-            print("  ", range(0,9), end=' ')
+            print("Your board is: \n")
+            print("  | 0 1 2 3 4 5 6 7 8 9", end=' ')
+            text_board = ""
             for i in range(self.size):
                 for j in range(self.size):
-                    print(self.board[i, j], end='  ')
-                print('\n')
+                    if j == 0:
+                        text_board += f"{i} | {self.board[i, j]} "
+                    else:
+                        text_board += f"{self.board[i, j]} "
+                text_board += "\n"
+            print(text_board)
         else:
             print("Your opponent's board is: ")
+            print("  | 0 1 2 3 4 5 6 7 8 9", end=' ')
+            text_board = ""
             for i in range(self.size):
                 for j in range(self.size):
-                    if self.board[i, j] >= 0:
-                        print('O', end='  ')
-                    elif self.board[i, j] == -1:
-                        print('·', end='  ')
+                    if j == 0:
+                        text_board += f"{i} | "
+                    if self.board[i, j] == -1:
+                        text_board += "O "
+                    elif self.board[i, j] == -2:
+                        text_board += "X "
                     else:
-                        print('X', end='  ')
-                print("\n")
+                        text_board += "· "
+                text_board += "\n"
+            print(text_board)
