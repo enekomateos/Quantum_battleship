@@ -72,8 +72,8 @@ def two_players_game(board1, board2):
     # Remove everything from screen
     os.system('cls' if os.name == 'nt' else "printf '\033c'")
 
-    possible_ships = {"Carrier": 5}#, "Battleship": 4, "Cruiser": 3, "Submarine": 3, "Destroyer": 2}
-    amount_of_ships = {"Carrier": 1}#, "Battleship": 1, "Cruiser": 1, "Submarine": 1, "Destroyer": 1}
+    possible_ships = {"Carrier": 5, "Battleship": 4, "Cruiser": 3, "Submarine": 3, "Destroyer": 2}
+    amount_of_ships = {"Carrier": 1, "Battleship": 1, "Cruiser": 1, "Submarine": 1, "Destroyer": 1}
 
     # Create ships for player 1
     ships1 = create_ships(possible_ships, amount_of_ships, board1)

@@ -8,7 +8,7 @@ def print_game_description():
     """
     Print the description of the game.
     """
-
+    os.system('cls' if os.name == 'nt' else "printf '\033c'")
     print("Welcome to the Battleship game! \n")
     print("But, what would happen if the ships were really small and governed by the laws of quantum mechanics?")
     print("It is not the common Battleship game, it is a quantum version of it!")
@@ -22,11 +22,12 @@ def tutorial():
     y = input("Would you like to know more about the quantum aspects of the game? If not, you will be able to get the descriptions when quantum events occur. (y/n)")
     if y == "y":
         superposition()
-        os.system('cls' if os.name == 'nt' else "printf '\033c'")
         particle_wave_dual()
+    os.system('cls' if os.name == 'nt' else "printf '\033c'")
     input("Press enter to continue")
 
 def superposition():
+    os.system('cls' if os.name == 'nt' else "printf '\033c'")
     print("The ships are governed by the laws of quantum mechanics. They can be in superposition, but what does it mean? Superposition is the property of a quantum system to be in many states simultaneously at the same time before the measurement.")
     print("In the game, it means that the ships can be in two places at the same time. When you shoot to a ship in a superposition, the ship will collapse to one of the possible positions when you hit it.")
     print("This is similar situation to meassuring a quantum system, after the mesurement the system will collapse to one of the possible states.")
@@ -37,6 +38,7 @@ def superposition():
     input("Press enter to continue")
     
 def particle_wave_dual():
+    os.system('cls' if os.name == 'nt' else "printf '\033c'")
     print("The quantum realm has even more suprises for us. Our cannons won't be the normal ones. They will shoot quantum projectiles.")
     print("This means that they will behave as particles and as waves at the same time.")
     print("Upon a hit, there won't be a clear blast place, but rather the distribuiton of the possibilities of the hit.")
