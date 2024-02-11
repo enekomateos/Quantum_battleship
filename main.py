@@ -67,11 +67,11 @@ def create_ships(possible_ships, amount_of_ships, board):
         print("You can create", amount_of_ships[ship_name], "ships of this type.")
         i=1
         while i<=amount_of_ships[ship_name]:
-            print("Create the ship number", i+1)
+            print("Create the ship number", i)
             while True:
                 try:
-                    x = int(input("Enter the x coordinate of the initial position of the ship: "))
-                    y = int(input("Enter the y coordinate of the initial position of the ship: "))
+                    x = int(input("Enter the vertical coordinate of the initial position of the ship: "))
+                    y = int(input("Enter the horizontal coordinate of the initial position of the ship: "))
                     break
                 except:
                     print("Invalid input. Please enter a number.")
@@ -83,20 +83,40 @@ def create_ships(possible_ships, amount_of_ships, board):
                     print("Invalid input. Please enter either 'vertical' or 'horizontal' for orientation.")
             superposition = input("Do you want to create a superposition of the ship? (y/n)")
             if superposition == "y" or superposition == "Y" or superposition == "yes" or superposition == "Yes" or superposition == "YES":
+                print("SUPERPOSITION")
                 while True:
+                    invalid = False
                     try:
-                        super_posx = int(input("Enter the x coordinate of the initial position of the ship that is going to be superimposed: "))
-                        super_posy = int(input("Enter the y coordinate of the initial position of the ship that is going to be superimposed: "))
-                        break
-                    except:
-                        print("Invalid input. Please enter a number.")
-                while True:
-                    try:
+                        super_posx = int(input("Enter the vertical coordinate of the initial position of the ship that is going to be superimposed: "))
+                        super_posy = int(input("Enter the horizontal coordinate of the initial position of the ship that is going to be superimposed: "))
                         super_pos_orientation = input("Enter the orientation of the ship that is going to be superimposed. It can be either 'vertical' or 'horizontal': ")
-                        break
                     except:
-                        print("Invalid input. Please enter either 'vertical' or 'horizontal' for orientation.")
-                ship = Ships(possible_ships[ship_name], x, y, orientation, True, super_pos_orientation, super_posx, super_posy)
+                        print("Invalid input. Please enter a number and correct orientation.")
+                    pos_sup = []
+                    if super_pos_orientation == "vertical":
+                        for j in range(possible_ships[ship_name]):
+                            pos_sup.append((super_posy, super_posx+j))
+                    else:
+                        for j in range(possible_ships[ship_name]):
+                            pos_sup.append((super_posy+j, super_posx))
+                    print(pos_sup)
+                    pos = []
+                    if orientation == "vertical":
+                        for j in range(possible_ships[ship_name]):
+                            pos.append((y, x+j))
+                    else:
+                        for j in range(possible_ships[ship_name]):
+                            pos.append((y+j, x))
+                    print(pos)
+                    for j in pos:
+                        if j in pos_sup:
+                            print("Invalid position for the superposition. Please choose another position.")
+                            invalid = True
+                    if invalid:
+                        continue
+                    break
+
+                ship = Ships(possible_ships[ship_name], y, x, orientation, True, super_pos_orientation, super_posy, super_posx)
                 all_ships.append(ship)
                 if board.check_valid_position(ship):
                     board.add_ship(ship)
@@ -106,7 +126,7 @@ def create_ships(possible_ships, amount_of_ships, board):
                 
                 input("Press enter to continue")
             else:
-                ship = Ships(possible_ships[ship_name], x, y, orientation)
+                ship = Ships(possible_ships[ship_name], y, x, orientation)
                 all_ships.append(ship)
                 if board.check_valid_position(ship):
                     board.add_ship(ship)
@@ -156,13 +176,13 @@ def single_player_game(board1, board2):
 
 def two_players_game(board_1, board_2):
         # Create ships for the two players of the game. In the future we may be able to change the amount of the ships.
-    # For now we will use the standard amount of ships.
+        # For now we will use the standard amount of ships.
 
     # Remove everything from screen
     os.system('cls' if os.name == 'nt' else "printf '\033c'")
 
-    possible_ships = {"Carrier": 5, "Battleship": 4}#, "Cruiser": 3, "Submarine": 3, "Destroyer": 2}
-    amount_of_ships = {"Carrier": 1, "Battleship": 1}#, "Cruiser": 1, "Submarine": 1, "Destroyer": 1}
+    possible_ships = {"Carrier": 5}#, "Battleship": 4, "Cruiser": 3, "Submarine": 3, "Destroyer": 2}
+    amount_of_ships = {"Carrier": 1}#, "Battleship": 1, "Cruiser": 1, "Submarine": 1, "Destroyer": 1}
 
     # Create ships for player 1
     ships1 = create_ships(possible_ships, amount_of_ships, board1)
@@ -182,8 +202,8 @@ def two_players_game(board_1, board_2):
         print("Choose the position to shoot.")
         while True:
             try:
-                x = int(input("Enter the x coordinate: "))
-                y = int(input("Enter the y coordinate: "))
+                x = int(input("Enter the vertical coordinate: "))
+                y = int(input("Enter the horizontal coordinate: "))
                 break
             except:
                 print("Invalid input. Please enter a number.")
@@ -206,8 +226,8 @@ def two_players_game(board_1, board_2):
         print("Choose the position to shoot.")
         while True:
             try:
-                x = int(input("Enter the x coordinate: "))
-                y = int(input("Enter the y coordinate: "))
+                x = int(input("Enter the vertical coordinate: "))
+                y = int(input("Enter the horizontal coordinate: "))
                 break
             except:
                 print("Invalid input. Please enter a number.")

@@ -54,13 +54,32 @@ class Board:
 
         valid = True
         coords = ship.define_position()
-        for coord in coords:
-            if coord[0] < 0 or coord[0] >= self.size or coord[1] < 0 or coord[1] >= self.size:
-                valid = False
-                print("The range of the ship goes outside the board.")
-            elif self.board[coord[0], coord[1]] > 0:
-                valid = False
-                print("The ship is overlapping with another ship.")
+        superposition = ship.superposition
+        if superposition:
+            coords_1 = coords[0]
+            coords_2 = coords[1]
+            for coord in coords_1:
+                if coord[0] < 0 or coord[0] >= self.size or coord[1] < 0 or coord[1] >= self.size:
+                    valid = False
+                    print("The range of the ship goes outside the board.")
+                elif self.board[coord[0], coord[1]] > 0:
+                    valid = False
+                    print("The ship is overlapping with another ship.")
+            for coord in coords_2:
+                if coord[0] < 0 or coord[0] >= self.size or coord[1] < 0 or coord[1] >= self.size:
+                    valid = False
+                    print("The range of the ship goes outside the board.")
+                elif self.board[coord[0], coord[1]] > 0:
+                    valid = False
+                    print("The ship is overlapping with another ship.")
+        else:
+            for coord in coords:
+                if coord[0] < 0 or coord[0] >= self.size or coord[1] < 0 or coord[1] >= self.size:
+                    valid = False
+                    print("The range of the ship goes outside the board.")
+                elif self.board[coord[0], coord[1]] > 0:
+                    valid = False
+                    print("The ship is overlapping with another ship.")
         return valid
 
 
@@ -133,7 +152,7 @@ class Board:
 
         # First apply wave-particle duality. The particle has a probability of being in an adjacent position
 
-        if np.random.rand() > 0.9:
+        if np.random.rand() > 0.8:
             print("Oh no! The particle did not go to where you wanted due to the wave-particle duality of the cannonball!")
             print("The particle went to an adjacent position!")
             input("Would you like to know more about the wave-particle duality? (y/n)")
@@ -149,7 +168,7 @@ class Board:
                 position = possible_positions[np.random.randint(0, 3)]
             else:
                 possible_positions = [(position[0]-1,position[1]-1), (position[0]-1,position[1]+1),
-                                  (position[0]+1,position[1]-1), (position[0]+1,position[1]+1)
+                                  (position[0]+1,position[1]-1), (position[0]+1,position[1]+1),
                                   (position[0],position[1]-1), (position[0],position[1]+1),
                                   (position[0]+1,position[1]), (position[0]-1,position[1])]
                 position = possible_positions[np.random.randint(0, 7)]
@@ -176,6 +195,9 @@ class Board:
                 else:
                     self.board[ship_position1] = 0
                     self.board[ship_position2] = 1
+                    print("Oh no! The ship was in superposition and it collapsed to the other position!")
+                    self.board[position[0], position[1]] = -1
+                    pass
             
         # Now we treat everything as a normal hit
 
