@@ -50,6 +50,49 @@ def select_game_mode():
     else:
         print("You chose two players mode.")
         return 2
+    
+
+
+def create_ships(possible_ships, amount_of_ships):
+    pass
+
+
+
+def single_player_game():
+    pass
+
+
+
+def two_players_game():
+        # Create ships for the two players of the game. In the future we may be able to change the amount of the ships.
+    # For now we will use the standard amount of ships.
+
+    possible_ships = {"Carrier": 5, "Battleship": 4, "Cruiser": 3, "Submarine": 3, "Destroyer": 2}
+    amount_of_ships = {"Carrier": 1, "Battleship": 1, "Cruiser": 1, "Submarine": 1, "Destroyer": 1}
+
+    # Create ships for player 1
+    create_ships(possible_ships, amount_of_ships)
+    # Create ships for player 2
+    create_ships(possible_ships, amount_of_ships)
+
+    
+    while True:
+        # Player 1 turn
+        print("Player 1 turn")
+        pass
+        # Player 2 turn
+        print("Player 2 turn")
+        pass
+
+
+
+
+
+
+###############################################################
+    ######################################################
+###############################################################
+
 
 # Start main code
 
@@ -67,25 +110,11 @@ def main():
     board1 = Board(size)
     board2 = Board(size)
 
-    # Create ships for the two players of the game. In the future we may be able to change the amount of the ships.
-    # For now we will use the standard amount of ships.
+    if game_mode == 1:
+        single_player_game()
+    else:
+        two_players_game()
 
-    possible_ships = {"Carrier": 5, "Battleship": 4, "Cruiser": 3, "Submarine": 3, "Destroyer": 2}
-    amount_of_ships = {"Carrier": 1, "Battleship": 1, "Cruiser": 1, "Submarine": 1, "Destroyer": 1}
-
-    # Create ships for player 1
-
-    # Create ships for player 2
-
-    # Start the game
-
-    while True:
-        # Player 1 turn
-        print("Player 1 turn")
-        pass
-        # Player 2 turn
-        print("Player 2 turn")
-        pass
 
 
 
