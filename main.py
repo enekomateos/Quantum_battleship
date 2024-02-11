@@ -1,6 +1,5 @@
 
 # Main code for the game
-#testndfg
 
 # Import block
 
