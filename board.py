@@ -153,7 +153,7 @@ class Board:
         # First apply wave-particle duality. The particle has a probability of being in an adjacent position
 
         if np.random.rand() > 0.8:
-            print("Oh no! The particle did not go to where you wanted due to the wave-particle duality of the cannonball!")
+            print("Oh no! The particle did not go to where it was shot due to the wave-particle duality of the cannonball!")
             print("The particle went to an adjacent position!")
             ans = input("Would you like to know more about the wave-particle duality? (y/n)")
             if ans == "y" or ans == "Y" or ans == "yes" or ans == "Yes" or ans == "YES":
@@ -197,13 +197,14 @@ class Board:
                     self.board[ship_position2] = 1
                     print("Oh no! The ship was in superposition and it collapsed to the other position!")
                     self.board[position[0], position[1]] = -1
-                    pass
+                    return
             
         # Now we treat everything as a normal hit
 
             self.board[position[0], position[1]] = -2
         else:
-            self.board[position[0], position[1]] = -1
+            if self.board[position[0], position[1]] == 0:
+                self.board[position[0], position[1]] = -1
 
     
     def print_board(self, player):

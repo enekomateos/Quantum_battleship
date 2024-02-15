@@ -77,7 +77,7 @@ def create_ships(possible_ships, amount_of_ships, board):
                         super_pos_orientation = input("Enter the orientation of the ship that is going to be superimposed. It can be either 'vertical' or 'horizontal': ")
                     except:
                         print("Invalid input. Please enter a number and correct orientation.")
-                    if super_pos_orientation != "vertical" or super_pos_orientation != "horizontal" or super_pos_orientation != "Vertical" or super_pos_orientation != "Horizontal" or super_pos_orientation != "VERTICAL" or super_pos_orientation != "HORIZONTAL" or super_pos_orientation != "v" or super_pos_orientation != "h" or super_pos_orientation != "V" or super_pos_orientation == "H":
+                    if super_pos_orientation != "vertical" and super_pos_orientation != "horizontal" and super_pos_orientation != "Vertical" and super_pos_orientation != "Horizontal" and super_pos_orientation != "VERTICAL" and super_pos_orientation != "HORIZONTAL" and super_pos_orientation != "v" and super_pos_orientation != "h" and super_pos_orientation != "V" and super_pos_orientation != "H":
                         print("Invalid input. Please enter a number and correct orientation.")
                         continue
                     pos_sup = []
@@ -87,7 +87,6 @@ def create_ships(possible_ships, amount_of_ships, board):
                     else:
                         for j in range(possible_ships[ship_name]):
                             pos_sup.append((super_posy+j, super_posx))
-                    print(pos_sup)
                     pos = []
                     if orientation == "vertical":
                         for j in range(possible_ships[ship_name]):
@@ -95,10 +94,10 @@ def create_ships(possible_ships, amount_of_ships, board):
                     else:
                         for j in range(possible_ships[ship_name]):
                             pos.append((y+j, x))
-                    print(pos)
                     for j in pos:
                         if j in pos_sup:
-                            print("Invalid position for the superposition. Please choose another position.")
+                            if not invalid:
+                                print("Invalid position for the superposition. Please choose another position.")
                             invalid = True
                     if invalid:
                         continue
