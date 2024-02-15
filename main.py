@@ -8,6 +8,7 @@ import numpy as np
 from board import Board
 import os
 from utilities_main import introduction, create_ships, pass_computer, situation, create_ships_computer
+from requirements import install_np
 
 # Functions
 
@@ -159,6 +160,13 @@ def two_players_game(board1, board2):
 # Start main code
 
 def main():
+
+    # Check if numpy is installed. If not, install it
+    try:
+        np.version.version
+    except:
+        install_np()
+
     global board1, board2
 
     # Print the introduction of the game
