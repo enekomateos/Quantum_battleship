@@ -166,6 +166,7 @@ def main():
         np.version.version
     except:
         install_np()
+        input("Press enter to continue. It will exit the program and you will have to run it again after installing numpy.")
 
     global board1, board2
 
